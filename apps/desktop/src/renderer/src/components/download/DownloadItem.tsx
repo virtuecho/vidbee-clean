@@ -1122,6 +1122,7 @@ export function DownloadItem({ download, isSelected = false, onToggleSelect }: D
                       onGlitchTipFeedback={(event) => {
                         event.stopPropagation()
                         return sendGlitchTipFeedback({
+                          associatedEventId: download.glitchTipEventId,
                           appInfo,
                           error: download.error,
                           sourceUrl: download.url,

@@ -1,5 +1,9 @@
 import * as Sentry from '@sentry/electron/main'
 import { app } from 'electron'
+import {
+  shouldDropTelemetryEvent,
+  shouldSkipTelemetryError
+} from '../../shared/telemetry/issue-filter'
 import { settingsManager } from '../settings'
 
 declare const __GLITCHTIP_DSN__: string
@@ -72,7 +76,11 @@ export const initGlitchTipMain = (): void => {
     enabled: true,
     environment: __GLITCHTIP_ENVIRONMENT__,
     beforeSend(event) {
-      return isTelemetryEnabled() ? event : null
+      if (!isTelemetryEnabled()) {
+        return null
+      }
+
+      return shouldDropTelemetryEvent(event) ? null : event
     },
     initialScope(scope) {
       scope.setTag('process', 'main')
@@ -105,15 +113,22 @@ export const addMainBreadcrumb = (
   })
 }
 
-export const captureMainException = (error: unknown, context?: TelemetryContext): void => {
+export const captureMainException = (
+  error: unknown,
+  context?: TelemetryContext
+): string | undefined => {
   if (!(isInitialized && isTelemetryEnabled())) {
     return
   }
 
-  Sentry.withScope((scope) => {
+  if (shouldSkipTelemetryError(error, context)) {
+    return
+  }
+
+  return Sentry.withScope((scope) => {
     scope.setTag('process', 'main')
     applyScopeContext(scope, context)
-    Sentry.captureException(toError(error))
+    return Sentry.captureException(toError(error))
   })
 }
 
@@ -123,6 +138,10 @@ export const captureMainMessage = (
   level: SeverityLevel = 'info'
 ): void => {
   if (!(isInitialized && isTelemetryEnabled())) {
+    return
+  }
+
+  if (shouldSkipTelemetryError(message, context, message)) {
     return
   }
 

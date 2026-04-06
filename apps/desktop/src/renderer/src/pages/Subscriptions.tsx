@@ -24,6 +24,7 @@ import { ScrollArea, ScrollBar } from '@renderer/components/ui/scroll-area'
 import { Tabs, TabsList, TabsTrigger } from '@renderer/components/ui/tabs'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@renderer/components/ui/tooltip'
 import { ipcServices } from '@renderer/lib/ipc'
+import { getSubscriptionStatusMeta } from '@renderer/lib/subscription-status'
 import { cn } from '@renderer/lib/utils'
 import { type DownloadRecord, downloadsArrayAtom } from '@renderer/store/downloads'
 import {
@@ -42,38 +43,6 @@ import { Download, Edit, ExternalLink, Plus, Power, RefreshCw, Trash2 } from 'lu
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
-
-const statusStyles: Record<
-  SubscriptionRule['status'],
-  { dotClass: string; textClass: string; label: string }
-> = {
-  'up-to-date': {
-    dotClass: 'bg-emerald-500',
-    textClass: 'text-emerald-600',
-    label: 'subscriptions.status.up-to-date'
-  },
-  checking: {
-    dotClass: 'bg-sky-500',
-    textClass: 'text-sky-600',
-    label: 'subscriptions.status.checking'
-  },
-  failed: {
-    dotClass: 'bg-red-500',
-    textClass: 'text-red-600',
-    label: 'subscriptions.status.failed'
-  },
-  idle: {
-    dotClass: 'bg-muted-foreground',
-    textClass: 'text-muted-foreground',
-    label: 'subscriptions.status.idle'
-  }
-}
-
-const disabledStatusStyle = {
-  dotClass: 'bg-zinc-400',
-  textClass: 'text-muted-foreground',
-  label: 'subscriptions.fields.disabled'
-}
 
 type SubscriptionItemStatus = DownloadStatus | 'queued' | 'notQueued'
 
@@ -132,12 +101,11 @@ function SubscriptionTab({
 }: SubscriptionTabProps) {
   const { t } = useTranslation()
   const [editOpen, setEditOpen] = useState(false)
-  const isDisabled = !subscription.enabled
-  const statusMeta = isDisabled ? disabledStatusStyle : statusStyles[subscription.status]
+  const statusMeta = getSubscriptionStatusMeta(subscription.status, subscription.enabled)
   const statusDescription =
     subscription.status === 'failed' && subscription.lastError
       ? subscription.lastError
-      : t(statusStyles[subscription.status].label)
+      : t(statusMeta.label)
   const lastUpdatedTimestamp =
     subscription.lastCheckedAt ?? subscription.updatedAt ?? subscription.createdAt ?? null
   const lastUpdatedLabel = lastUpdatedTimestamp

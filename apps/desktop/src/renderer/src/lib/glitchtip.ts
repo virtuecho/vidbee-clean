@@ -1,4 +1,8 @@
 import * as Sentry from '@sentry/electron/renderer'
+import {
+  shouldDropTelemetryEvent,
+  shouldSkipTelemetryError
+} from '../../../shared/telemetry/issue-filter'
 
 declare const __GLITCHTIP_DSN__: string
 declare const __GLITCHTIP_ENVIRONMENT__: string
@@ -63,7 +67,11 @@ export const initGlitchTipRenderer = (): void => {
     enabled: true,
     environment: __GLITCHTIP_ENVIRONMENT__,
     beforeSend(event) {
-      return rendererTelemetryEnabled ? event : null
+      if (!rendererTelemetryEnabled) {
+        return null
+      }
+
+      return shouldDropTelemetryEvent(event) ? null : event
     },
     initialScope(scope) {
       scope.setTag('process', 'renderer')
@@ -103,6 +111,10 @@ export const captureRendererException = (error: unknown, context?: TelemetryCont
     return
   }
 
+  if (shouldSkipTelemetryError(error, context)) {
+    return
+  }
+
   Sentry.withScope((scope) => {
     scope.setTag('process', 'renderer')
     applyScopeContext(scope, context)
@@ -116,6 +128,10 @@ export const captureRendererMessage = (
   level: SeverityLevel = 'info'
 ): void => {
   if (!(isInitialized && rendererTelemetryEnabled)) {
+    return
+  }
+
+  if (shouldSkipTelemetryError(message, context, message)) {
     return
   }
 

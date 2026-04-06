@@ -153,6 +153,7 @@ class HistoryManager {
       error: row.error ?? undefined,
       ytDlpCommand: row.ytDlpCommand ?? undefined,
       ytDlpLog: row.ytDlpLog ?? undefined,
+      glitchTipEventId: undefined,
       description: row.description ?? undefined,
       channel: row.channel ?? undefined,
       uploader: row.uploader ?? undefined,

@@ -67,6 +67,7 @@ export interface DownloadItem {
   speed?: string
   ytDlpCommand?: string
   ytDlpLog?: string
+  glitchTipEventId?: string
   // Enhanced video information
   duration?: number
   fileSize?: number
@@ -118,6 +119,7 @@ export interface DownloadHistoryItem {
   error?: string
   ytDlpCommand?: string
   ytDlpLog?: string
+  glitchTipEventId?: string
   // Additional metadata
   description?: string
   channel?: string

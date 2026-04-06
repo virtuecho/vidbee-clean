@@ -6,12 +6,20 @@ import { scopedLoggers } from '../utils/logger'
 
 class FfmpegManager {
   private ffmpegPath: string | null = null
+  private initializePromise: Promise<string> | null = null
 
+  /**
+   * Resolves and caches the ffmpeg binary path for the current runtime.
+   */
   async initialize(): Promise<void> {
     this.ffmpegPath = await this.findFfmpegBinary()
+    this.initializePromise = null
     scopedLoggers.engine.info('ffmpeg initialized at:', this.ffmpegPath)
   }
 
+  /**
+   * Returns the cached ffmpeg binary path after successful initialization.
+   */
   getPath(): string {
     if (!this.ffmpegPath) {
       throw new Error('ffmpeg not initialized. Call initialize() first.')
@@ -19,6 +27,32 @@ class FfmpegManager {
     return this.ffmpegPath
   }
 
+  /**
+   * Ensures ffmpeg is initialized and preserves the original lookup failure.
+   */
+  async ensureInitialized(): Promise<string> {
+    if (this.ffmpegPath) {
+      return this.ffmpegPath
+    }
+
+    if (!this.initializePromise) {
+      this.initializePromise = this.findFfmpegBinary()
+        .then((resolvedPath) => {
+          this.ffmpegPath = resolvedPath
+          scopedLoggers.engine.info('ffmpeg initialized at:', resolvedPath)
+          return resolvedPath
+        })
+        .finally(() => {
+          this.initializePromise = null
+        })
+    }
+
+    return this.initializePromise
+  }
+
+  /**
+   * Resolves the resources directory for packaged and development builds.
+   */
   private getResourcesPath(): string {
     if (process.env.NODE_ENV === 'development') {
       return path.join(process.cwd(), 'resources')
@@ -30,6 +64,9 @@ class FfmpegManager {
     return path.join(process.resourcesPath, 'resources')
   }
 
+  /**
+   * Finds a usable ffmpeg binary and validates that ffprobe is colocated.
+   */
   private async findFfmpegBinary(): Promise<string> {
     const platform = os.platform()
     const ffmpegFileName = platform === 'win32' ? 'ffmpeg.exe' : 'ffmpeg'

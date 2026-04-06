@@ -12,6 +12,7 @@ import { settingsManager } from '../settings'
 import { downloadEngine } from './download-engine'
 import { addMainBreadcrumb, captureMainException } from './glitchtip'
 import { historyManager } from './history-manager'
+import { shouldCaptureSubscriptionCheckError } from './subscription-error-utils'
 import { subscriptionManager } from './subscription-manager'
 
 const logger = log.scope('subscriptions')
@@ -302,17 +303,19 @@ export class SubscriptionScheduler extends EventEmitter {
         lastCheckedAt: Date.now()
       })
       logger.error('Subscription check failed:', { id: subscription.id, error })
-      captureMainException(error, {
-        extra: {
-          feedUrl: subscription.feedUrl,
-          sourceUrl: subscription.sourceUrl
-        },
-        fingerprint: ['subscription-check-error', subscription.id],
-        tags: {
-          source: 'subscription.check',
-          subscription_id: subscription.id
-        }
-      })
+      if (shouldCaptureSubscriptionCheckError(message)) {
+        captureMainException(error, {
+          extra: {
+            feedUrl: subscription.feedUrl,
+            sourceUrl: subscription.sourceUrl
+          },
+          fingerprint: ['subscription-check-error', subscription.id],
+          tags: {
+            source: 'subscription.check',
+            subscription_id: subscription.id
+          }
+        })
+      }
     }
   }
 

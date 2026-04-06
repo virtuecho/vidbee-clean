@@ -27,6 +27,7 @@ import {
   captureMainMessage,
   initGlitchTipMain
 } from './lib/glitchtip'
+import { initializeOptionalTool } from './lib/startup-dependencies'
 import { subscriptionManager } from './lib/subscription-manager'
 import { subscriptionScheduler } from './lib/subscription-scheduler'
 import { ytdlpManager } from './lib/ytdlp-manager'
@@ -383,13 +384,16 @@ function setupDownloadEvents(): void {
   })
 
   downloadEngine.on('download-error', (id: string, error: Error) => {
-    captureMainException(error, {
+    const glitchTipEventId = captureMainException(error, {
       fingerprint: ['download-error', error.name, error.message],
       tags: {
         download_id: id,
         source: 'download-engine'
       }
     })
+    if (glitchTipEventId) {
+      downloadEngine.updateDownloadInfo(id, { glitchTipEventId })
+    }
     sendToRenderer('download:error', { id, error: error.message })
   })
 
@@ -656,19 +660,11 @@ app.whenReady().then(async () => {
   // IPC services are automatically registered by electron-ipc-decorator when imported
   log.info('IPC services available:', Object.keys(services))
 
-  // Initialize ffmpeg
-  try {
-    log.info('Initializing ffmpeg...')
-    await ffmpegManager.initialize()
-    log.info('ffmpeg initialized successfully')
-  } catch (error) {
-    log.error('Failed to initialize ffmpeg:', error)
-    captureMainException(error, {
-      tags: {
-        source: 'ffmpeg.initialize'
-      }
-    })
-  }
+  await initializeOptionalTool({
+    initialize: () => ffmpegManager.initialize(),
+    label: 'ffmpeg',
+    logger: log
+  })
 
   // Initialize yt-dlp
   try {

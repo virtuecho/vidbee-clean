@@ -7,6 +7,7 @@ interface AppInfo {
 }
 
 interface SendGlitchTipFeedbackOptions {
+  associatedEventId?: string | null
   appInfo?: AppInfo
   error?: string | null
   sourceUrl?: string | null
@@ -27,6 +28,12 @@ const clampLog = (value?: string | null): string => {
   return normalized.slice(-MAX_LOG_LENGTH)
 }
 
+/**
+ * Build the feedback payload message sent to GlitchTip.
+ *
+ * @param options The feedback payload pieces collected from the UI.
+ * @returns The normalized multi-line feedback message.
+ */
 const buildFeedbackMessage = ({
   appInfo,
   error,
@@ -57,9 +64,15 @@ export const sendGlitchTipFeedback = async (
     return
   }
 
+  const associatedEventId = options.associatedEventId?.trim()
+  if (!associatedEventId) {
+    toast.error('GlitchTip feedback needs an associated error event.')
+    return
+  }
+
   const feedbackMessage = buildFeedbackMessage(options)
-  const associatedEventId = BrowserSentry.withScope((scope) => {
-    scope.setLevel('error')
+  BrowserSentry.withScope((scope) => {
+    scope.setLevel('info')
     scope.setTag('feedback_source', 'manual')
     scope.setContext('download_feedback', {
       appVersion: options.appInfo?.appVersion || 'Unknown',
@@ -68,14 +81,12 @@ export const sendGlitchTipFeedback = async (
       ytDlpCommand: options.ytDlpCommand?.trim() || 'Unknown',
       ytDlpLog: clampLog(options.ytDlpLog)
     })
-    return BrowserSentry.captureMessage('Manual download feedback submitted', 'error')
-  })
-
-  BrowserSentry.captureFeedback({
-    associatedEventId,
-    message: feedbackMessage,
-    name: 'VidBee user',
-    source: 'desktop-feedback'
+    BrowserSentry.captureFeedback({
+      associatedEventId,
+      message: feedbackMessage,
+      name: 'VidBee user',
+      source: 'desktop-feedback'
+    })
   })
 
   toast.success('Feedback sent to GlitchTip.')

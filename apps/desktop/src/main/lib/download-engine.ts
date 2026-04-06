@@ -864,7 +864,7 @@ class DownloadEngine extends EventEmitter {
 
     let ffmpegPath: string
     try {
-      ffmpegPath = ffmpegManager.getPath()
+      ffmpegPath = await ffmpegManager.ensureInitialized()
     } catch (error) {
       const ffmpegError = error instanceof Error ? error : new Error(String(error))
       scopedLoggers.download.error('Failed to resolve ffmpeg for download ID:', id, ffmpegError)
@@ -1405,6 +1405,9 @@ class DownloadEngine extends EventEmitter {
     if (updates.ytDlpLog !== undefined) {
       historyUpdates.ytDlpLog = updates.ytDlpLog
     }
+    if (updates.glitchTipEventId !== undefined) {
+      historyUpdates.glitchTipEventId = updates.glitchTipEventId
+    }
     if (updates.savedFileName !== undefined) {
       historyUpdates.savedFileName = updates.savedFileName
     }
@@ -1506,6 +1509,7 @@ class DownloadEngine extends EventEmitter {
       error: updates.error,
       ytDlpCommand: updates.ytDlpCommand,
       ytDlpLog: updates.ytDlpLog,
+      glitchTipEventId: updates.glitchTipEventId,
       description: updates.description,
       channel: updates.channel,
       uploader: updates.uploader,
@@ -1533,7 +1537,8 @@ class DownloadEngine extends EventEmitter {
       downloadPath: resolvedDownloadPath ?? base.downloadPath,
       tags: updates.tags ?? base.tags,
       origin: updates.origin ?? base.origin,
-      subscriptionId: updates.subscriptionId ?? base.subscriptionId
+      subscriptionId: updates.subscriptionId ?? base.subscriptionId,
+      glitchTipEventId: updates.glitchTipEventId ?? base.glitchTipEventId
     }
 
     historyManager.addHistoryItem(merged)
