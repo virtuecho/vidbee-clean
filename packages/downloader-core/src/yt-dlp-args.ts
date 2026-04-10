@@ -83,10 +83,14 @@ export const appendPlatformFilenameSafetyArgs = (
   args: string[],
   platform: NodeJS.Platform = process.platform
 ): void => {
-  if (platform !== 'win32') {
+  if (platform === 'win32') {
+    args.push('--windows-filenames')
+  }
+
+  if (platform === 'win32' || platform === 'darwin' || platform === 'linux') {
+    args.push('--trim-filenames', WINDOWS_FILENAME_TRIM_LENGTH)
     return
   }
-  args.push('--windows-filenames', '--trim-filenames', WINDOWS_FILENAME_TRIM_LENGTH)
 }
 
 export const isYouTubeUrl = (url: string): boolean => {
