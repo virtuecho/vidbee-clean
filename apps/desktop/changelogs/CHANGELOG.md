@@ -3,6 +3,14 @@
 This page only includes user-visible updates and avoids implementation details.
 For full release notes, see [GitHub Releases](https://github.com/nexmoe/VidBee/releases).
 
+## [v1.3.9](https://github.com/nexmoe/VidBee/releases/tag/v1.3.9) - 2026-04-11
+### Improvements
+- Custom FFmpeg locations are easier to set: use either the executable path or the folder that contains it.
+- Subscription checks show clearer messages when a feed is unavailable or something goes wrong.
+- Download status and hints are easier to follow when you need to fix a setting or retry.
+- Very long download filenames are shortened automatically on macOS and Linux, matching Windows behavior.
+- Where supported, you can use a keyboard shortcut to add a link to downloads more quickly.
+
 ## [v1.3.8](https://github.com/nexmoe/VidBee/releases/tag/v1.3.8) - 2026-04-06
 ### Bug Fixes
 - Hardened database migrations so older installs upgrade more reliably.

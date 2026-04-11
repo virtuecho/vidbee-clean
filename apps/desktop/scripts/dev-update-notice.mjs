@@ -6,7 +6,7 @@ const child = spawn('pnpm', ['run', 'dev'], {
     ...process.env,
     VITE_FORCE_UPDATE_NOTICE: '1',
     VITE_FORCE_CURRENT_VERSION: '1.3.0',
-    VITE_FORCE_LATEST_VERSION: '1.3.8'
+    VITE_FORCE_LATEST_VERSION: '1.3.9'
   },
   shell: true,
   stdio: 'inherit'

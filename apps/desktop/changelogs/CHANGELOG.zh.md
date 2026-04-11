@@ -3,6 +3,14 @@
 本页只记录你能直接感知到的更新，不展开技术实现细节。
 完整发布记录请查看 [GitHub Releases](https://github.com/nexmoe/VidBee/releases)。
 
+## [v1.3.9](https://github.com/nexmoe/VidBee/releases/tag/v1.3.9) - 2026-04-11
+### 改进
+- 自定义 FFmpeg 路径更简单：可填写可执行文件路径，或其所在文件夹。
+- 订阅源检查失败或异常时，提示更清晰易懂。
+- 下载过程中的状态与提示更易理解，便于排查或重试。
+- macOS 与 Linux 下过长文件名会自动截断，与 Windows 行为一致。
+- 在支持的界面中，可使用快捷键更快添加下载链接。
+
 ## [v1.3.8](https://github.com/nexmoe/VidBee/releases/tag/v1.3.8) - 2026-04-06
 ### Bug 修复
 - 强化数据库迁移，旧版本安装升级更可靠。
