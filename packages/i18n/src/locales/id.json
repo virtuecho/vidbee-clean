@@ -84,7 +84,10 @@
       "uptodate": "Anda sudah menggunakan versi terbaru",
       "error": "Tidak dapat mengambil versi terbaru"
     },
-    "downloadingUpdate": "Mengunduh pembaruan"
+    "downloadingUpdate": "Mengunduh pembaruan",
+    "changelog": {
+      "currentVersion": "Versi saat ini"
+    }
   },
   "advancedOptions": {
     "closeWhenDone": "Tutup aplikasi saat unduhan selesai",

@@ -84,7 +84,10 @@
       "uptodate": "Sei aggiornato",
       "error": "Impossibile recuperare l'ultima versione"
     },
-    "downloadingUpdate": "Download dell'aggiornamento"
+    "downloadingUpdate": "Download dell'aggiornamento",
+    "changelog": {
+      "currentVersion": "Versione attuale"
+    }
   },
   "advancedOptions": {
     "closeWhenDone": "Chiudi app quando il download finisce",

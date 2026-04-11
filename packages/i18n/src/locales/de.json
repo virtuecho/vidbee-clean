@@ -84,7 +84,10 @@
       "uptodate": "Sie sind auf dem neuesten Stand",
       "error": "Neueste Version konnte nicht abgerufen werden"
     },
-    "downloadingUpdate": "Update wird heruntergeladen"
+    "downloadingUpdate": "Update wird heruntergeladen",
+    "changelog": {
+      "currentVersion": "Aktuelle Version"
+    }
   },
   "advancedOptions": {
     "closeWhenDone": "App schließen, wenn Download abgeschlossen ist",

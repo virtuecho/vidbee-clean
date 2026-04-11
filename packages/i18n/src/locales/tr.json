@@ -84,7 +84,10 @@
       "uptodate": "Güncelsiniz",
       "error": "En son sürümü alamıyor"
     },
-    "downloadingUpdate": "Güncelleme indiriliyor"
+    "downloadingUpdate": "Güncelleme indiriliyor",
+    "changelog": {
+      "currentVersion": "Mevcut sürüm"
+    }
   },
   "advancedOptions": {
     "closeWhenDone": "İndirme bittiğinde uygulamayı kapat",

@@ -84,7 +84,10 @@
       "uptodate": "最新バージョンを使用中",
       "error": "最新バージョンを取得できません"
     },
-    "downloadingUpdate": "アップデートをダウンロードしています"
+    "downloadingUpdate": "アップデートをダウンロードしています",
+    "changelog": {
+      "currentVersion": "現在のバージョン"
+    }
   },
   "advancedOptions": {
     "closeWhenDone": "ダウンロード完了時にアプリを閉じる",

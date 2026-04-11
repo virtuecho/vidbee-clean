@@ -906,8 +906,8 @@ export function DownloadItem({ download, isSelected = false, onToggleSelect }: D
 
             {/* Content */}
             <div className="pointer-events-none min-w-0 max-w-full flex-1 overflow-hidden">
-              <div className="flex h-14 w-full flex-col items-center justify-center gap-1.5 sm:flex-row sm:justify-between sm:gap-2">
-                <div className="min-w-0 max-w-full flex-1 items-center space-y-1.5 overflow-hidden">
+              <div className="flex h-14 w-full flex-col justify-center gap-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+                <div className="min-w-0 max-w-full flex-1 space-y-1.5 overflow-hidden">
                   <div className="flex w-full min-w-0 flex-wrap items-center gap-1.5 overflow-hidden">
                     <p className="wrap-break-word line-clamp-1 flex-1 font-medium text-sm">
                       {download.title}

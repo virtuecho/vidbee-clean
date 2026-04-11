@@ -1,3 +1,4 @@
+import { Changelog } from '@renderer/components/changelog/Changelog'
 import { useAppInfo } from '@renderer/components/feedback/FeedbackLinks'
 import { Badge } from '@renderer/components/ui/badge'
 import { Button } from '@renderer/components/ui/button'
@@ -9,7 +10,6 @@ import type { LucideIcon } from 'lucide-react'
 import {
   Download,
   Facebook,
-  FileText,
   Github,
   Link as LinkIcon,
   MessageSquare,
@@ -216,13 +216,6 @@ export function About() {
         description: t('about.resources.websiteDescription'),
         actionLabel: t('about.actions.visit'),
         href: 'https://vidbee.org/'
-      },
-      {
-        icon: FileText,
-        label: t('about.resources.changelog'),
-        description: t('about.resources.changelogDescription'),
-        actionLabel: t('about.actions.view'),
-        href: 'https://github.com/nexmoe/VidBee/releases'
       }
     ],
     [t]
@@ -426,6 +419,8 @@ export function About() {
             </div>
           </CardContent>
         </Card>
+
+        <Changelog appVersion={appVersion} />
       </div>
     </div>
   )

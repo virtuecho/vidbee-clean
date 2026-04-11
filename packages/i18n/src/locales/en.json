@@ -10,6 +10,9 @@
       "view": "View",
       "visit": "Visit"
     },
+    "changelog": {
+      "currentVersion": "Current"
+    },
     "appName": "VidBee",
     "autoUpdateDescription": "Automatic updates are always enabled and new releases download in the background.",
     "autoUpdateTitle": "Auto updates",

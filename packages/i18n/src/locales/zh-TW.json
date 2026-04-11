@@ -84,7 +84,10 @@
       "uptodate": "您已是最新版本",
       "error": "無法取得最新版本"
     },
-    "downloadingUpdate": "正在下載更新"
+    "downloadingUpdate": "正在下載更新",
+    "changelog": {
+      "currentVersion": "目前版本"
+    }
   },
   "advancedOptions": {
     "closeWhenDone": "下載完成後關閉應用程式",

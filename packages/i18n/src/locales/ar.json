@@ -84,7 +84,10 @@
       "uptodate": "أنت محدث",
       "error": "تعذر جلب أحدث إصدار"
     },
-    "downloadingUpdate": "تنزيل التحديث"
+    "downloadingUpdate": "تنزيل التحديث",
+    "changelog": {
+      "currentVersion": "الإصدار الحالي"
+    }
   },
   "advancedOptions": {
     "closeWhenDone": "إغلاق التطبيق عند انتهاء التحميل",

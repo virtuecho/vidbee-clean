@@ -84,7 +84,10 @@
       "uptodate": "Estás actualizado",
       "error": "No se pudo obtener la última versión"
     },
-    "downloadingUpdate": "Descargando actualización"
+    "downloadingUpdate": "Descargando actualización",
+    "changelog": {
+      "currentVersion": "Versión actual"
+    }
   },
   "advancedOptions": {
     "closeWhenDone": "Cerrar la aplicación cuando termine la descarga",

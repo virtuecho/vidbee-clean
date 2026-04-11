@@ -84,7 +84,10 @@
       "uptodate": "У вас актуальная версия",
       "error": "Не удалось получить последнюю версию"
     },
-    "downloadingUpdate": "Загрузка обновления"
+    "downloadingUpdate": "Загрузка обновления",
+    "changelog": {
+      "currentVersion": "Текущая версия"
+    }
   },
   "advancedOptions": {
     "closeWhenDone": "Закрыть приложение после завершения загрузки",
