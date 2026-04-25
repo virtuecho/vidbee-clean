@@ -448,6 +448,8 @@
     "enableAnalyticsDescription": "Uygulamanın nasıl kullanıldığını anlamamıza ve iyileştirmelere öncelik vermemize yardımcı olmak için anonim kullanım verilerini paylaşın.",
     "enableDownloadNotifications": "İndirme bildirimleri",
     "enableDownloadNotificationsDescription": "Bir indirme tamamlandığında sistem bildirimi göster.",
+    "downloadDirectlyToSelectedFolder": "Videoları doğrudan seçilen klasöre kaydet",
+    "downloadDirectlyToSelectedFolderDescription": "Tekli video indirmelerini VidBee veya Videos klasörleri oluşturmadan indirme konumuna kaydet.",
     "downloadWithoutChannelSubfolders": "Videoları kanal alt klasörleri olmadan kaydet",
     "downloadWithoutChannelSubfoldersDescription": "Tekli video indirmelerini kanal alt klasörü oluşturmadan doğrudan Videos klasörüne kaydet.",
     "embedChapters": "Bölümleri gömün",

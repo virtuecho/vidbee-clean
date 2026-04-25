@@ -448,6 +448,8 @@
     "enableAnalyticsDescription": "익명의 사용 데이터를 공유하면 앱이 어떻게 사용되는지 이해하고 개선 우선순위를 정하는 데 도움이 됩니다.",
     "enableDownloadNotifications": "다운로드 알림",
     "enableDownloadNotificationsDescription": "다운로드가 완료되면 시스템 알림을 표시합니다.",
+    "downloadDirectlyToSelectedFolder": "선택한 폴더에 동영상 바로 저장",
+    "downloadDirectlyToSelectedFolderDescription": "VidBee 또는 Videos 폴더를 만들지 않고 단일 동영상 다운로드를 다운로드 위치에 바로 저장합니다.",
     "downloadWithoutChannelSubfolders": "채널 하위 폴더 없이 비디오 저장",
     "downloadWithoutChannelSubfoldersDescription": "단일 비디오 다운로드를 채널 하위 폴더 대신 Videos 폴더에 바로 저장합니다.",
     "embedChapters": "챕터 포함",

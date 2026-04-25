@@ -398,7 +398,7 @@ function checkBinary(filePath, args, label, options = {}) {
       ? options.timeoutMs
       : os.platform() === 'win32'
         ? 20_000
-        : 8000
+        : 60_000
   const result = spawnSync(filePath, args, {
     encoding: 'utf8',
     timeout: timeoutMs,

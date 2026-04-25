@@ -448,6 +448,8 @@
     "enableAnalyticsDescription": "共享匿名使用数据，帮助我们了解应用程序的使用情况并确定改进的优先顺序。",
     "enableDownloadNotifications": "下载通知",
     "enableDownloadNotificationsDescription": "下载完成时显示系统通知。",
+    "downloadDirectlyToSelectedFolder": "直接保存到所选文件夹",
+    "downloadDirectlyToSelectedFolderDescription": "将单个视频下载直接保存到下载位置，不创建 VidBee 或 Videos 文件夹。",
     "downloadWithoutChannelSubfolders": "保存视频时不创建频道子文件夹",
     "downloadWithoutChannelSubfoldersDescription": "将单个视频下载直接保存到 Videos 文件夹，而不是创建频道子文件夹。",
     "embedChapters": "嵌入章节",

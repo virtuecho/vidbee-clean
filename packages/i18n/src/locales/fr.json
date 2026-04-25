@@ -448,6 +448,8 @@
     "enableAnalyticsDescription": "Partagez des données d'utilisation anonymes pour nous aider à comprendre comment l'application est utilisée et prioriser les améliorations.",
     "enableDownloadNotifications": "Notifications de téléchargement",
     "enableDownloadNotificationsDescription": "Afficher une notification système lorsqu’un téléchargement est terminé.",
+    "downloadDirectlyToSelectedFolder": "Enregistrer les vidéos directement dans le dossier sélectionné",
+    "downloadDirectlyToSelectedFolderDescription": "Enregistrez les téléchargements vidéo simples dans votre emplacement de téléchargement sans créer de dossiers VidBee ni Videos.",
     "downloadWithoutChannelSubfolders": "Enregistrer les vidéos sans sous-dossiers de chaîne",
     "downloadWithoutChannelSubfoldersDescription": "Enregistrez les téléchargements vidéo simples directement dans le dossier Videos au lieu de créer un sous-dossier par chaîne.",
     "embedChapters": "Intégrer les chapitres",

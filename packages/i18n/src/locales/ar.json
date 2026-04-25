@@ -448,6 +448,8 @@
     "enableAnalyticsDescription": "مشاركة بيانات الاستخدام المجهولة لمساعدتنا في فهم كيفية استخدام التطبيق وأولويات التحسينات.",
     "enableDownloadNotifications": "إشعارات التنزيل",
     "enableDownloadNotificationsDescription": "اعرض إشعار نظام عند اكتمال التنزيل.",
+    "downloadDirectlyToSelectedFolder": "احفظ الفيديوهات مباشرة في المجلد المحدد",
+    "downloadDirectlyToSelectedFolderDescription": "احفظ تنزيلات الفيديو الفردية في موقع التنزيل بدون إنشاء مجلدات VidBee أو Videos.",
     "downloadWithoutChannelSubfolders": "احفظ الفيديوهات بدون مجلدات القنوات الفرعية",
     "downloadWithoutChannelSubfoldersDescription": "احفظ تنزيلات الفيديو الفردية مباشرة داخل مجلد Videos بدلاً من إنشاء مجلد فرعي باسم القناة.",
     "embedChapters": "تضمين الفصول",

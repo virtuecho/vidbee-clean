@@ -448,6 +448,8 @@
     "enableAnalyticsDescription": "Bagikan data penggunaan anonim untuk membantu kami memahami bagaimana aplikasi digunakan dan memprioritaskan peningkatan.",
     "enableDownloadNotifications": "Notifikasi unduhan",
     "enableDownloadNotificationsDescription": "Tampilkan notifikasi sistem saat unduhan selesai.",
+    "downloadDirectlyToSelectedFolder": "Simpan video langsung di folder yang dipilih",
+    "downloadDirectlyToSelectedFolderDescription": "Simpan unduhan video tunggal di lokasi unduhan tanpa membuat folder VidBee atau Videos.",
     "downloadWithoutChannelSubfolders": "Simpan video tanpa subfolder kanal",
     "downloadWithoutChannelSubfoldersDescription": "Simpan unduhan video tunggal langsung ke folder Videos tanpa membuat subfolder kanal.",
     "embedChapters": "Sematkan bab",

@@ -448,6 +448,8 @@
     "enableAnalyticsDescription": "匿名の使用状況データを共有することで、アプリの使用状況を把握し、改善の優先順位を付けることができます。",
     "enableDownloadNotifications": "ダウンロード通知",
     "enableDownloadNotificationsDescription": "ダウンロードが完了したときにシステム通知を表示します。",
+    "downloadDirectlyToSelectedFolder": "選択したフォルダーに動画を直接保存",
+    "downloadDirectlyToSelectedFolderDescription": "VidBee または Videos フォルダーを作成せず、単一動画のダウンロードをダウンロード場所に直接保存します。",
     "downloadWithoutChannelSubfolders": "チャンネルのサブフォルダーを作らずに動画を保存",
     "downloadWithoutChannelSubfoldersDescription": "単一動画のダウンロードをチャンネル用サブフォルダーではなく Videos フォルダーに直接保存します。",
     "embedChapters": "チャプターを埋め込む",

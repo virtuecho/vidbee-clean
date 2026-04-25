@@ -73,6 +73,7 @@ export function Settings() {
   }, [])
 
   const autoLaunchSupported = platform === 'darwin' || platform === 'win32'
+  const downloadDirectlyToSelectedFolder = settings.downloadDirectlyToSelectedFolder ?? false
 
   const handleSettingChange = useCallback(
     async (key: keyof typeof settings, value: (typeof settings)[keyof typeof settings]) => {
@@ -84,6 +85,26 @@ export function Settings() {
       }
     },
     [saveSetting, t]
+  )
+
+  const handleDownloadDirectlyToSelectedFolderChange = useCallback(
+    async (value: boolean) => {
+      await handleSettingChange('downloadDirectlyToSelectedFolder', value)
+      if (value) {
+        await handleSettingChange('downloadWithoutChannelSubfolders', false)
+      }
+    },
+    [handleSettingChange]
+  )
+
+  const handleDownloadWithoutChannelSubfoldersChange = useCallback(
+    async (value: boolean) => {
+      if (downloadDirectlyToSelectedFolder) {
+        return
+      }
+      await handleSettingChange('downloadWithoutChannelSubfolders', value)
+    },
+    [downloadDirectlyToSelectedFolder, handleSettingChange]
   )
 
   const handleSelectPath = async () => {
@@ -776,6 +797,32 @@ export function Settings() {
 
               <Item variant="muted">
                 <ItemContent>
+                  <ItemTitle>{t('settings.downloadDirectlyToSelectedFolder')}</ItemTitle>
+                  <ItemDescription>
+                    {t('settings.downloadDirectlyToSelectedFolderDescription')}
+                  </ItemDescription>
+                </ItemContent>
+                <ItemActions>
+                  <Switch
+                    checked={downloadDirectlyToSelectedFolder}
+                    onCheckedChange={(value) => {
+                      try {
+                        void handleDownloadDirectlyToSelectedFolderChange(value)
+                      } catch (error) {
+                        logger.error(
+                          '[Settings] Error changing downloadDirectlyToSelectedFolder:',
+                          error
+                        )
+                      }
+                    }}
+                  />
+                </ItemActions>
+              </Item>
+
+              <ItemSeparator />
+
+              <Item variant="muted">
+                <ItemContent>
                   <ItemTitle>{t('settings.downloadWithoutChannelSubfolders')}</ItemTitle>
                   <ItemDescription>
                     {t('settings.downloadWithoutChannelSubfoldersDescription')}
@@ -783,10 +830,14 @@ export function Settings() {
                 </ItemContent>
                 <ItemActions>
                   <Switch
-                    checked={settings.downloadWithoutChannelSubfolders ?? false}
+                    checked={
+                      !downloadDirectlyToSelectedFolder &&
+                      (settings.downloadWithoutChannelSubfolders ?? false)
+                    }
+                    disabled={downloadDirectlyToSelectedFolder}
                     onCheckedChange={(value) => {
                       try {
-                        handleSettingChange('downloadWithoutChannelSubfolders', value)
+                        void handleDownloadWithoutChannelSubfoldersChange(value)
                       } catch (error) {
                         logger.error(
                           '[Settings] Error changing downloadWithoutChannelSubfolders:',

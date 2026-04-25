@@ -448,6 +448,8 @@
     "enableAnalyticsDescription": "Compartilhe dados de uso anônimos para nos ajudar a entender como o aplicativo é usado e priorizar melhorias.",
     "enableDownloadNotifications": "Notificações de download",
     "enableDownloadNotificationsDescription": "Mostra uma notificação do sistema quando um download for concluído.",
+    "downloadDirectlyToSelectedFolder": "Salvar vídeos diretamente na pasta selecionada",
+    "downloadDirectlyToSelectedFolderDescription": "Salva downloads de vídeo únicos no local de download sem criar pastas VidBee ou Videos.",
     "downloadWithoutChannelSubfolders": "Salvar vídeos sem subpastas do canal",
     "downloadWithoutChannelSubfoldersDescription": "Salva downloads de vídeo únicos diretamente na pasta Videos em vez de criar uma subpasta para o canal.",
     "embedChapters": "Incorporar capítulos",

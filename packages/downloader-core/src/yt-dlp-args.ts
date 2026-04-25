@@ -28,7 +28,7 @@ export interface YtDlpDownloadOptions {
 
 const YOUTUBE_HOST_SUFFIXES = ['youtube.com', 'youtu.be', 'youtube-nocookie.com'] as const
 const YOUTUBE_SAFE_PLAYER_CLIENTS = 'default,-web,-web_safari'
-const DEFAULT_FILENAME_TEMPLATE = '%(title)s via VidBee.%(ext)s'
+const DEFAULT_FILENAME_TEMPLATE = '%(id)s %(title)s.%(ext)s'
 const WINDOWS_FILENAME_TRIM_LENGTH = '120'
 
 const hasYouTubeHost = (host: string): boolean =>

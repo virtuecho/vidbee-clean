@@ -268,6 +268,7 @@ export type OneClickQualityPreset = 'best' | 'good' | 'normal' | 'bad' | 'worst'
 export interface AppSettings {
   downloadPath: string
   maxConcurrentDownloads: number
+  downloadDirectlyToSelectedFolder: boolean
   downloadWithoutChannelSubfolders: boolean
   browserForCookies: string
   cookiesPath: string
@@ -300,6 +301,7 @@ export const DEFAULT_SUBSCRIPTION_FILENAME_TEMPLATE = '%(uploader)s/%(title)s.%(
 export const defaultSettings: AppSettings = {
   downloadPath: '',
   maxConcurrentDownloads: 5,
+  downloadDirectlyToSelectedFolder: true,
   downloadWithoutChannelSubfolders: false,
   browserForCookies: 'none',
   cookiesPath: '',
@@ -316,12 +318,12 @@ export const defaultSettings: AppSettings = {
   launchAtLogin: false,
   autoUpdate: true,
   subscriptionOnlyLatestDefault: true,
-  enableAnalytics: true,
-  enableDownloadNotifications: true,
-  rememberLastAudioLanguage: true,
+  enableAnalytics: false,
+  enableDownloadNotifications: false,
+  rememberLastAudioLanguage: false,
   preferredAudioLanguage: '',
   embedSubs: true,
-  embedThumbnail: false,
+  embedThumbnail: true,
   embedMetadata: true,
   embedChapters: true,
   shareWatermark: false

@@ -468,7 +468,7 @@ class DownloadEngine extends EventEmitter {
     for (const entry of selectedEntries) {
       const downloadId = `${groupId}_${Math.random().toString(36).slice(2, 10)}`
       const customFilenameTemplate = hasDuplicateTitles
-        ? `${String(entry.index).padStart(indexWidth, '0')} - %(title)s via VidBee.%(ext)s`
+        ? `${String(entry.index).padStart(indexWidth, '0')} - %(id)s %(title)s.%(ext)s`
         : undefined
 
       const downloadOptions: DownloadOptions = {
@@ -788,7 +788,8 @@ class DownloadEngine extends EventEmitter {
       resolvedDownloadPath = resolveAutoVideoDownloadPath(
         defaultDownloadPath,
         videoInfo,
-        settings.downloadWithoutChannelSubfolders
+        settings.downloadWithoutChannelSubfolders,
+        settings.downloadDirectlyToSelectedFolder
       )
       options.customDownloadPath = resolvedDownloadPath
     }

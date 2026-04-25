@@ -1,3 +1,13 @@
+## vidbee-clean changes
+
+This clean version removes `via VidBee` from default download filenames and changes the default naming pattern to `video ID + title + extension`, so YouTube videos with the same title no longer conflict.
+
+The desktop app also adds a setting to save single-video downloads directly into the selected download folder without automatically creating `VidBee`, `Videos`, or channel subfolders.
+
+This version also changes some default settings for better user experiences.
+
+---
+
 <div align="left">
   <a href="https://github.com/nexmoe/VidBee">
     <img src="apps/desktop/build/icon.png" alt="Logo" width="80" height="80">

@@ -448,6 +448,8 @@
     "enableAnalyticsDescription": "Поделитесь анонимными данными об использовании, чтобы помочь нам понять, как используется приложение, и расставить приоритеты улучшений.",
     "enableDownloadNotifications": "Уведомления о загрузке",
     "enableDownloadNotificationsDescription": "Показывать системное уведомление, когда загрузка завершена.",
+    "downloadDirectlyToSelectedFolder": "Сохранять видео прямо в выбранную папку",
+    "downloadDirectlyToSelectedFolderDescription": "Сохранять одиночные загрузки видео в папку загрузок без создания папок VidBee или Videos.",
     "downloadWithoutChannelSubfolders": "Сохранять видео без подпапок канала",
     "downloadWithoutChannelSubfoldersDescription": "Сохранять одиночные загрузки видео прямо в папку Videos, не создавая подпапку канала.",
     "embedChapters": "Встраивать главы",
