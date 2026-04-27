@@ -90,6 +90,13 @@ const resolveTemplateToken = (token: string, info?: VideoInfo): string | undefin
   }
 }
 
+export const resolveOrganizedDownloadBasePath = (
+  basePath: string,
+  useVidBeeFolder = false
+): string => {
+  return useVidBeeFolder ? path.join(basePath, 'VidBee') : basePath
+}
+
 export const isLikelyChannelUrl = (url: string): boolean => {
   const normalized = url.toLowerCase()
   if (normalized.includes('list=')) {
@@ -101,29 +108,31 @@ export const isLikelyChannelUrl = (url: string): boolean => {
 export const resolveAutoPlaylistDownloadPath = (
   basePath: string,
   info: PlaylistInfo,
-  url: string
+  url: string,
+  useVidBeeFolder = false
 ): string => {
   const kindFolder = isLikelyChannelUrl(url) ? 'Channels' : 'Playlists'
   const title = sanitizeFolderName(
     info.title || (kindFolder === 'Channels' ? 'Channel' : 'Playlist'),
     kindFolder === 'Channels' ? 'Channel' : 'Playlist'
   )
-  return path.join(basePath, kindFolder, title)
+  return path.join(resolveOrganizedDownloadBasePath(basePath, useVidBeeFolder), kindFolder, title)
+}
+
+export interface AutoVideoDownloadPathOptions {
+  useVidBeeFolder?: boolean
+  useVideosFolder?: boolean
+  useChannelFolder?: boolean
 }
 
 export const resolveAutoVideoDownloadPath = (
   basePath: string,
   info?: VideoInfo,
-  skipChannelSubfolders = false,
-  useBasePathOnly = false
+  options: AutoVideoDownloadPathOptions = {}
 ): string => {
-  if (useBasePathOnly) {
-    return basePath
-  }
-
-  const root = path.join(basePath, 'Videos')
-  // Issue #263 keeps single-video downloads in the root video folder when users disable channel subfolders.
-  if (!info || skipChannelSubfolders) {
+  const organizedBasePath = resolveOrganizedDownloadBasePath(basePath, options.useVidBeeFolder)
+  const root = options.useVideosFolder ? path.join(organizedBasePath, 'Videos') : organizedBasePath
+  if (!(info && options.useChannelFolder)) {
     return root
   }
   const label = info.uploader?.trim() || info.title?.trim()

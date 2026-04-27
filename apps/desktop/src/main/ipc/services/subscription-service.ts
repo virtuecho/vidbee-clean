@@ -13,6 +13,7 @@ import {
 import { sanitizeFilenameTemplate } from '../../download-engine/args-builder'
 import { subscriptionManager } from '../../lib/subscription-manager'
 import { subscriptionScheduler } from '../../lib/subscription-scheduler'
+import { resolveOrganizedDownloadBasePath } from '../../lib/path-resolver'
 import { settingsManager } from '../../settings'
 
 interface CreateSubscriptionOptions {
@@ -121,7 +122,10 @@ class SubscriptionService extends IpcService {
       throw new Error(SUBSCRIPTION_DUPLICATE_FEED_ERROR)
     }
     const settings = settingsManager.getAll()
-    const defaultDownloadDirectory = path.join(settings.downloadPath, 'Subscriptions')
+    const defaultDownloadDirectory = path.join(
+      resolveOrganizedDownloadBasePath(settings.downloadPath, settings.downloadWithVidBeeFolder),
+      'Subscriptions'
+    )
     const payload: SubscriptionCreatePayload = {
       sourceUrl: resolved.sourceUrl,
       feedUrl: resolved.feedUrl,

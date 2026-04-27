@@ -30,12 +30,12 @@ const sanitizeCommaList = (value: string) =>
 
 const sanitizeTemplateInput = (value: string) => value.replace(/\\/g, '/').replace(/\/{2,}/g, '/')
 
-const buildDefaultSubscriptionDirectory = (downloadPath: string) => {
+const buildDefaultSubscriptionDirectory = (downloadPath: string, useVidBeeFolder: boolean) => {
   const trimmed = downloadPath.trim().replace(/[\\/]+$/, '')
   if (!trimmed) {
     return 'Subscriptions'
   }
-  return `${trimmed}/Subscriptions`
+  return `${trimmed}${useVidBeeFolder ? '/VidBee' : ''}/Subscriptions`
 }
 
 export interface SubscriptionFormData {
@@ -79,7 +79,9 @@ export function SubscriptionFormDialog({
   const [detectingFeed, setDetectingFeed] = useState(false)
 
   const detectTimeout = useRef<NodeJS.Timeout | null>(null)
-  const prevDefaultPathRef = useRef(buildDefaultSubscriptionDirectory(settings.downloadPath))
+  const prevDefaultPathRef = useRef(
+    buildDefaultSubscriptionDirectory(settings.downloadPath, settings.downloadWithVidBeeFolder)
+  )
   const urlInputId = useId()
   const advancedOptionsId = useId()
   const [advancedOptionsOpen, setAdvancedOptionsOpen] = useState(false)
@@ -105,15 +107,27 @@ export function SubscriptionFormDialog({
       setKeywords('')
       setTags('')
       setOnlyLatest(settings.subscriptionOnlyLatestDefault)
-      setDownloadDirectory(buildDefaultSubscriptionDirectory(settings.downloadPath))
+      setDownloadDirectory(
+        buildDefaultSubscriptionDirectory(settings.downloadPath, settings.downloadWithVidBeeFolder)
+      )
       setNamingTemplate(DEFAULT_SUBSCRIPTION_FILENAME_TEMPLATE)
     }
-  }, [open, mode, subscription, settings.subscriptionOnlyLatestDefault, settings.downloadPath])
+  }, [
+    open,
+    mode,
+    subscription,
+    settings.subscriptionOnlyLatestDefault,
+    settings.downloadPath,
+    settings.downloadWithVidBeeFolder
+  ])
 
   // Sync download directory with settings changes (only in add mode)
   useEffect(() => {
     if (mode === 'add') {
-      const newPath = buildDefaultSubscriptionDirectory(settings.downloadPath)
+      const newPath = buildDefaultSubscriptionDirectory(
+        settings.downloadPath,
+        settings.downloadWithVidBeeFolder
+      )
       setDownloadDirectory((prev) => {
         if (!prev || prev === prevDefaultPathRef.current) {
           return newPath
@@ -122,7 +136,7 @@ export function SubscriptionFormDialog({
       })
       prevDefaultPathRef.current = newPath
     }
-  }, [settings.downloadPath, mode])
+  }, [settings.downloadPath, settings.downloadWithVidBeeFolder, mode])
 
   // Sync onlyLatest with settings changes (only in add mode)
   useEffect(() => {

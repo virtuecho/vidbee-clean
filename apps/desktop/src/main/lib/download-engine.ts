@@ -433,7 +433,12 @@ class DownloadEngine extends EventEmitter {
     const settings = settingsManager.getAll()
     const resolvedDownloadPath =
       options.customDownloadPath?.trim() ||
-      resolveAutoPlaylistDownloadPath(settings.downloadPath, playlistInfo, options.url)
+      resolveAutoPlaylistDownloadPath(
+        settings.downloadPath,
+        playlistInfo,
+        options.url,
+        settings.downloadWithVidBeeFolder
+      )
     ensureDirectoryExists(resolvedDownloadPath)
 
     const selectedEntries = rawEntries.filter((entry) => {
@@ -788,8 +793,11 @@ class DownloadEngine extends EventEmitter {
       resolvedDownloadPath = resolveAutoVideoDownloadPath(
         defaultDownloadPath,
         videoInfo,
-        settings.downloadWithoutChannelSubfolders,
-        settings.downloadDirectlyToSelectedFolder
+        {
+          useVidBeeFolder: settings.downloadWithVidBeeFolder,
+          useVideosFolder: settings.downloadSingleVideosWithVideosFolder,
+          useChannelFolder: settings.downloadSingleVideosWithChannelFolder
+        }
       )
       options.customDownloadPath = resolvedDownloadPath
     }

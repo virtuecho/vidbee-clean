@@ -73,7 +73,6 @@ export function Settings() {
   }, [])
 
   const autoLaunchSupported = platform === 'darwin' || platform === 'win32'
-  const downloadDirectlyToSelectedFolder = settings.downloadDirectlyToSelectedFolder ?? false
 
   const handleSettingChange = useCallback(
     async (key: keyof typeof settings, value: (typeof settings)[keyof typeof settings]) => {
@@ -85,26 +84,6 @@ export function Settings() {
       }
     },
     [saveSetting, t]
-  )
-
-  const handleDownloadDirectlyToSelectedFolderChange = useCallback(
-    async (value: boolean) => {
-      await handleSettingChange('downloadDirectlyToSelectedFolder', value)
-      if (value) {
-        await handleSettingChange('downloadWithoutChannelSubfolders', false)
-      }
-    },
-    [handleSettingChange]
-  )
-
-  const handleDownloadWithoutChannelSubfoldersChange = useCallback(
-    async (value: boolean) => {
-      if (downloadDirectlyToSelectedFolder) {
-        return
-      }
-      await handleSettingChange('downloadWithoutChannelSubfolders', value)
-    },
-    [downloadDirectlyToSelectedFolder, handleSettingChange]
   )
 
   const handleSelectPath = async () => {
@@ -797,20 +776,43 @@ export function Settings() {
 
               <Item variant="muted">
                 <ItemContent>
-                  <ItemTitle>{t('settings.downloadDirectlyToSelectedFolder')}</ItemTitle>
+                  <ItemTitle>{t('settings.downloadWithVidBeeFolder')}</ItemTitle>
                   <ItemDescription>
-                    {t('settings.downloadDirectlyToSelectedFolderDescription')}
+                    {t('settings.downloadWithVidBeeFolderDescription')}
                   </ItemDescription>
                 </ItemContent>
                 <ItemActions>
                   <Switch
-                    checked={downloadDirectlyToSelectedFolder}
+                    checked={settings.downloadWithVidBeeFolder ?? false}
                     onCheckedChange={(value) => {
                       try {
-                        void handleDownloadDirectlyToSelectedFolderChange(value)
+                        void handleSettingChange('downloadWithVidBeeFolder', value)
+                      } catch (error) {
+                        logger.error('[Settings] Error changing downloadWithVidBeeFolder:', error)
+                      }
+                    }}
+                  />
+                </ItemActions>
+              </Item>
+
+              <ItemSeparator />
+
+              <Item variant="muted">
+                <ItemContent>
+                  <ItemTitle>{t('settings.downloadSingleVideosWithVideosFolder')}</ItemTitle>
+                  <ItemDescription>
+                    {t('settings.downloadSingleVideosWithVideosFolderDescription')}
+                  </ItemDescription>
+                </ItemContent>
+                <ItemActions>
+                  <Switch
+                    checked={settings.downloadSingleVideosWithVideosFolder ?? false}
+                    onCheckedChange={(value) => {
+                      try {
+                        void handleSettingChange('downloadSingleVideosWithVideosFolder', value)
                       } catch (error) {
                         logger.error(
-                          '[Settings] Error changing downloadDirectlyToSelectedFolder:',
+                          '[Settings] Error changing downloadSingleVideosWithVideosFolder:',
                           error
                         )
                       }
@@ -823,24 +825,20 @@ export function Settings() {
 
               <Item variant="muted">
                 <ItemContent>
-                  <ItemTitle>{t('settings.downloadWithoutChannelSubfolders')}</ItemTitle>
+                  <ItemTitle>{t('settings.downloadSingleVideosWithChannelFolder')}</ItemTitle>
                   <ItemDescription>
-                    {t('settings.downloadWithoutChannelSubfoldersDescription')}
+                    {t('settings.downloadSingleVideosWithChannelFolderDescription')}
                   </ItemDescription>
                 </ItemContent>
                 <ItemActions>
                   <Switch
-                    checked={
-                      !downloadDirectlyToSelectedFolder &&
-                      (settings.downloadWithoutChannelSubfolders ?? false)
-                    }
-                    disabled={downloadDirectlyToSelectedFolder}
+                    checked={settings.downloadSingleVideosWithChannelFolder ?? false}
                     onCheckedChange={(value) => {
                       try {
-                        void handleDownloadWithoutChannelSubfoldersChange(value)
+                        void handleSettingChange('downloadSingleVideosWithChannelFolder', value)
                       } catch (error) {
                         logger.error(
-                          '[Settings] Error changing downloadWithoutChannelSubfolders:',
+                          '[Settings] Error changing downloadSingleVideosWithChannelFolder:',
                           error
                         )
                       }

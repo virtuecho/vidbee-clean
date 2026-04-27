@@ -10,7 +10,8 @@ const ElectronStore = require('electron-store')
 // Access the default export
 const Store = ElectronStore.default || ElectronStore
 
-const OLD_DEFAULT_DOWNLOAD_PATH = path.join(os.homedir(), 'Downloads')
+const DEFAULT_DOWNLOAD_PATH = path.join(os.homedir(), 'Downloads')
+const BRANDED_DEFAULT_DOWNLOAD_PATH = path.join(DEFAULT_DOWNLOAD_PATH, 'VidBee')
 const ensureDirectoryExists = (dir: string) => {
   try {
     fs.mkdirSync(dir, { recursive: true })
@@ -18,12 +19,6 @@ const ensureDirectoryExists = (dir: string) => {
     scopedLoggers.system.error('Failed to ensure download directory:', error)
   }
 }
-
-const resolveDefaultDownloadPath = () => {
-  return path.join(os.homedir(), 'Downloads', 'VidBee')
-}
-
-const DEFAULT_DOWNLOAD_PATH = resolveDefaultDownloadPath()
 
 class SettingsManager {
   // biome-ignore lint/suspicious/noExplicitAny: electron-store requires dynamic import
@@ -94,10 +89,12 @@ class SettingsManager {
   private ensureDownloadDirectory(): void {
     try {
       const currentPath: string | undefined = this.store.get('downloadPath')
+      const currentNormalizedPath = currentPath ? path.normalize(currentPath) : ''
       const normalizedDownloadPath =
-        !currentPath || currentPath === OLD_DEFAULT_DOWNLOAD_PATH
+        !currentNormalizedPath || currentNormalizedPath === BRANDED_DEFAULT_DOWNLOAD_PATH
           ? DEFAULT_DOWNLOAD_PATH
-          : currentPath
+          : currentNormalizedPath
+      ensureDirectoryExists(normalizedDownloadPath)
       if (normalizedDownloadPath !== currentPath) {
         this.store.set('downloadPath', normalizedDownloadPath)
       }

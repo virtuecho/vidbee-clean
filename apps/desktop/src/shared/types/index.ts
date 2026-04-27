@@ -268,8 +268,9 @@ export type OneClickQualityPreset = 'best' | 'good' | 'normal' | 'bad' | 'worst'
 export interface AppSettings {
   downloadPath: string
   maxConcurrentDownloads: number
-  downloadDirectlyToSelectedFolder: boolean
-  downloadWithoutChannelSubfolders: boolean
+  downloadWithVidBeeFolder: boolean
+  downloadSingleVideosWithVideosFolder: boolean
+  downloadSingleVideosWithChannelFolder: boolean
   browserForCookies: string
   cookiesPath: string
   proxy: string
@@ -301,8 +302,9 @@ export const DEFAULT_SUBSCRIPTION_FILENAME_TEMPLATE = '%(uploader)s/%(title)s.%(
 export const defaultSettings: AppSettings = {
   downloadPath: '',
   maxConcurrentDownloads: 5,
-  downloadDirectlyToSelectedFolder: true,
-  downloadWithoutChannelSubfolders: false,
+  downloadWithVidBeeFolder: false,
+  downloadSingleVideosWithVideosFolder: false,
+  downloadSingleVideosWithChannelFolder: false,
   browserForCookies: 'none',
   cookiesPath: '',
   proxy: '',

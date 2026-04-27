@@ -2,9 +2,7 @@
 
 This clean version removes `via VidBee` from default download filenames and changes the default naming pattern to `video ID + title + extension`, so YouTube videos with the same title no longer conflict.
 
-The desktop app also adds a setting to save single-video downloads directly into the selected download folder without automatically creating `VidBee`, `Videos`, or channel subfolders.
-
-This version also changes some default settings for better user experiences.
+The desktop app now defaults to the system `Downloads` folder. The `VidBee` folder is optional and off by default, while playlist, channel, and subscription downloads keep their `Playlists`, `Channels`, and `Subscriptions` folders. Single video downloads go directly to the base download folder by default, with separate optional `Videos` and channel/uploader folder modes.
 
 ---
 
