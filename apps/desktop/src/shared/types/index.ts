@@ -325,7 +325,7 @@ export const defaultSettings: AppSettings = {
   rememberLastAudioLanguage: false,
   preferredAudioLanguage: '',
   embedSubs: true,
-  embedThumbnail: true,
+  embedThumbnail: false,
   embedMetadata: true,
   embedChapters: true,
   shareWatermark: false
